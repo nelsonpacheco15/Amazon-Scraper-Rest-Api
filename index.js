@@ -54,6 +54,19 @@ app.get('/products/:productId/offers', async (req, res) => {
 });
 
 
+// search query
+app.get('/search/:searchquery', async (req, res) => {
+    const {searchquery} = req.params;
+    const {api_key} = req.query;
+
+    try {
+        const response = await request(`${generateScraperUrl(apiKey)}&url=https://www.amazon.com/s?k=${searchquery}`)
+        res.json(JSON.parse(response));
+    } catch (error) {
+        res.json(error);
+    }
+});
+
 
 
 
